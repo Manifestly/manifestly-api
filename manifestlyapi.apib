@@ -333,6 +333,296 @@ Returns the details of the workflow as well as all the workflow steps.
             }
 
 
+## Workflow Steps Collection [/checklists/{checklist_id}/steps{?api_key}]
+
+### List all Workflow Steps [GET]
+
+Returns a list of active steps for the specified run.
+
++ Parameters
+    + api_key - Your API key
+    + checklist_id (optional) - Filter list based on workflow ID.
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "checklist": {
+                    "id": 97,
+                    "account_id": 23,
+                    "business_days": [
+                        ""
+                    ],
+                    "description": "",
+                    "expected_duration": null,
+                    "expected_duration_units": null,
+                    "external_id": null,
+                    "hide_steps_from_external": false,
+                    "tag_list": [
+                        "professional services"
+                    ],
+                    "title": "Bi Weekly Reviews",
+                    "steps": [
+                        {
+                            "id": 1373,
+                            "checklist_id": 97,
+                            "position": 1,
+                            "title": "Tasks and Plans",
+                            "created_at": "2014-10-21T13:12:03.977Z",
+                            "updated_at": "2014-10-21T13:12:07.696Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 936,
+                            "checklist_id": 97,
+                            "position": 2,
+                            "title": "Review Stretch Goals from last week",
+                            "created_at": "2014-10-07T19:35:24.351Z",
+                            "updated_at": "2016-06-20T22:08:00.231Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1373
+                        },
+                        {
+                            "id": 925,
+                            "checklist_id": 97,
+                            "position": 3,
+                            "title": "Review Marketing board",
+                            "created_at": "2014-10-04T14:51:40.252Z",
+                            "updated_at": "2017-02-20T03:44:38.946Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1373
+                        },
+                        {
+                            "id": 926,
+                            "checklist_id": 97,
+                            "position": 5,
+                            "title": "Review Pivotal Tracker",
+                            "created_at": "2014-10-04T14:51:54.796Z",
+                            "updated_at": "2015-07-21T21:58:57.147Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1373
+                        },
+                        {
+                            "id": 393210,
+                            "checklist_id": 97,
+                            "position": 6,
+                            "title": "Review roadmap",
+                            "created_at": "2018-05-15T14:07:08.261Z",
+                            "updated_at": "2018-05-15T14:07:14.800Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1373
+                        },
+                        {
+                            "id": 1374,
+                            "checklist_id": 97,
+                            "position": 9,
+                            "title": "Customers",
+                            "created_at": "2014-10-21T13:12:26.581Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 1375,
+                            "checklist_id": 97,
+                            "position": 12,
+                            "title": "Google Analytics",
+                            "created_at": "2014-10-21T13:12:45.715Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1374
+                        },
+                        {
+                            "id": 1376,
+                            "checklist_id": 97,
+                            "position": 14,
+                            "title": "Blog & Twitter",
+                            "created_at": "2014-10-21T13:13:19.737Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 931,
+                            "checklist_id": 97,
+                            "position": 15,
+                            "title": "Review potential blog articles",
+                            "created_at": "2014-10-06T23:20:43.829Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1376
+                        },
+                        {
+                            "id": 30137,
+                            "checklist_id": 97,
+                            "position": 16,
+                            "title": "Anything for Latest Features",
+                            "created_at": "2016-01-18T17:36:28.560Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1376
+                        },
+                        {
+                            "id": 932,
+                            "checklist_id": 97,
+                            "position": 17,
+                            "title": "Review blog",
+                            "created_at": "2014-10-06T23:27:53.199Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1376
+                        },
+                        {
+                            "id": 1378,
+                            "checklist_id": 97,
+                            "position": 19,
+                            "title": "How is the Process?",
+                            "created_at": "2014-10-21T13:15:33.163Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 933,
+                            "checklist_id": 97,
+                            "position": 20,
+                            "title": "How are you feeling?",
+                            "created_at": "2014-10-06T23:42:39.294Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1378
+                        },
+                        {
+                            "id": 934,
+                            "checklist_id": 97,
+                            "position": 21,
+                            "title": "Any updates to this checklist?",
+                            "created_at": "2014-10-06T23:42:44.510Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1378
+                        },
+                        {
+                            "id": 1379,
+                            "checklist_id": 97,
+                            "position": 22,
+                            "title": "Goals",
+                            "created_at": "2014-10-21T13:15:54.057Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 935,
+                            "checklist_id": 97,
+                            "position": 23,
+                            "title": "Update stretch goals for the coming week",
+                            "created_at": "2014-10-07T19:35:01.578Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1379
+                        },
+                        {
+                            "id": 34814,
+                            "checklist_id": 97,
+                            "position": 26,
+                            "title": null,
+                            "created_at": "2016-02-29T22:45:33.193Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        }
+                    ]
+                }
+            }
+
 
 ## Checklist Runs Collection [/runs/{?api_key,checklist_id,external_id,status,page,per_page,title}]
 
