@@ -10,7 +10,7 @@ Utilize your Manifestly Checklists via the API. Each request requires the api_ke
 
 + Parameters
     + api_key - Your API key
-    
+
 ### Create / Update a Workflow [POST]
 
 Create or update a workflow. If the external_id is specified and found, the workflow is updated. Otherwise, a new workflow is created.
@@ -102,7 +102,7 @@ Deactivate a Workflow by specifying its external_id.
                 "description": null
               }]
             }
-            
+
 
 ## Workflow [/checklists/{checklist_id}/{?api_key}]
 
@@ -348,12 +348,12 @@ Returns a list of runs. Includes metadata on pagination, if relevant.
     + status (optional) - Filter list based on status of the run [started, late, completed].
     + per_page (optional) - Number of max records to return per request. Default is 30.
     + page (optional) - Choose which page to return.
-    
-    
+
+
 + Response 200 (application/json)
-            
+
     + Body
-        
+
             {
               "runs": [
                 {
@@ -467,7 +467,7 @@ object containing a collection of optional checklist run properties along with a
 
 + Parameters
     + api_key - Your API key
-    
+
 + Request (application/json)
 
         {
@@ -527,14 +527,14 @@ object containing a collection of optional checklist run properties along with a
 + Parameters
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
-    
+
 ### Get Checklist Run Details [GET]
 
 Returns the details of the checklist run as well as the participants on the checklist.
 
 + Parameters
     + api_key - Your API key
-    
+
 + Response 200 (application/json)
 
     + Body
@@ -585,11 +585,11 @@ Update the checklist run title, participants, and late_at date.
 
 + Parameters
     + api_key - Your API key
-    
+
 + Request (application/json)
 
         {
-            "run": 
+            "run":
             {
                 "title": "My new run",
                 "late_at": "2016-10-06T22:02:21.186Z",
@@ -607,11 +607,11 @@ Update the checklist run title, participants, and late_at date.
 
 + Parameters
     + api_key - Your API key
-    
+
 + Response 201 (application/json)
 
     + Body
-    
+
             {
               "run_steps": [
                 {
@@ -985,7 +985,7 @@ Complete a checklist step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
 
@@ -997,7 +997,7 @@ Uncomplete a checklist step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
 ### Skip Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/skip{?api_key}]
@@ -1008,7 +1008,7 @@ Skip a checklist step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
 
@@ -1020,7 +1020,7 @@ Unskip a checklist step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
 ### Add Data to a Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/data/{?api_key}]
@@ -1031,16 +1031,16 @@ Add Data to a Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
-    
+
+
 + Request
 
-    + Body 
-  
+    + Body
+
             {
               "data": "Your data"
             }
-  
+
 + Response 200 (application/json)
 
 
@@ -1052,15 +1052,15 @@ Add an Image to a Checklist Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Request
 
-    + Body 
-  
+    + Body
+
             {
               "picture": "Base 64 encoded picture data"
             }
-  
+
 + Response 200 (application/json)
 
 ### List All Comments for a Checklist Run Step [GET /runs/{run_id}/run_steps/{run_step_id}/comments{?api_key}]
@@ -1071,11 +1071,11 @@ Get all comments for a Checklist Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
     + Body
-    
+
             {
               "comments": [
                 {
@@ -1115,11 +1115,11 @@ Add a Comment to a Checklist Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Request
 
-    + Body 
-  
+    + Body
+
             {
               "comment": "The text of the comment"
             }
@@ -1135,15 +1135,15 @@ Assign a Checklist Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Request
 
-    + Body 
-  
+    + Body
+
             {
               "assignee_user_id": "The user ID of the assignee"
             }
-  
+
 + Response 200 (application/json)
 
 ## Users Collection [/users/{?api_key}]
@@ -1152,11 +1152,11 @@ Assign a Checklist Run Step
 
 + Parameters
     + api_key - Your API key
-    
+
 + Response 200 (application/json)
 
     + Body
-    
+
             {
               "users": [
                 {
