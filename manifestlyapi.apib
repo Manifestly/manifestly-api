@@ -10,7 +10,7 @@ Utilize your Manifestly Checklists via the API. Each request requires the api_ke
 
 + Parameters
     + api_key - Your API key
-    
+
 ### Create / Update a Workflow [POST]
 
 Create or update a workflow. If the external_id is specified and found, the workflow is updated. Otherwise, a new workflow is created.
@@ -77,7 +77,7 @@ Deactivate a Workflow by specifying its external_id.
 
 + Response 404
 
-### List All Workflos [GET]
+### List All Workflows [GET]
 
 + Response 200 (application/json)
 
@@ -102,7 +102,7 @@ Deactivate a Workflow by specifying its external_id.
                 "description": null
               }]
             }
-            
+
 
 ## Workflow [/checklists/{checklist_id}/{?api_key}]
 
@@ -113,7 +113,6 @@ Deactivate a Workflow by specifying its external_id.
 ### Get Workflow Details [GET]
 
 Returns the details of the workflow as well as all the workflow steps.
-
 
 + Response 200 (application/json)
 
@@ -333,6 +332,531 @@ Returns the details of the workflow as well as all the workflow steps.
             }
 
 
+## Workflow Steps Collection [/checklists/{checklist_id}/steps{?api_key}]
+
+### Create a Checklist Step [POST]
+You can add a step to a workflow. If position is not specified, the step is appended to the end of the current list of steps.
+
++ Parameters
+    + api_key - Your API key
+    + checklist_id - The workflow ID
+
++ Attributes
+    + header_step - Whether the step contains other steps
+    + position - The position of the step
+    + title - The step title
+
++ Request (application/json)
+
+
+    + Body
+
+              {
+                "header_step": true,
+                "title": "A new header"
+              }
+
++ Response 201 (application/json)
+
+
+    + Body
+
+              {
+                "step": {
+                  "active": true,
+                  "checklist_id": 97,
+                  "id": 514111,
+                  "header_step": true,
+                  "position": 27
+                  "title": "A new header"
+                }
+              }
+
+### List all Workflow Steps [GET]
+
+Returns a list of active steps for the specified run.
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "checklist": {
+                    "id": 97,
+                    "account_id": 23,
+                    "business_days": [
+                        ""
+                    ],
+                    "description": "",
+                    "expected_duration": null,
+                    "expected_duration_units": null,
+                    "external_id": null,
+                    "hide_steps_from_external": false,
+                    "tag_list": [
+                        "professional services"
+                    ],
+                    "title": "Bi Weekly Reviews",
+                    "steps": [
+                        {
+                            "id": 1373,
+                            "checklist_id": 97,
+                            "position": 1,
+                            "title": "Tasks and Plans",
+                            "created_at": "2014-10-21T13:12:03.977Z",
+                            "updated_at": "2014-10-21T13:12:07.696Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 936,
+                            "checklist_id": 97,
+                            "position": 2,
+                            "title": "Review Stretch Goals from last week",
+                            "created_at": "2014-10-07T19:35:24.351Z",
+                            "updated_at": "2016-06-20T22:08:00.231Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1373
+                        },
+                        {
+                            "id": 925,
+                            "checklist_id": 97,
+                            "position": 3,
+                            "title": "Review Marketing board",
+                            "created_at": "2014-10-04T14:51:40.252Z",
+                            "updated_at": "2017-02-20T03:44:38.946Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1373
+                        },
+                        {
+                            "id": 926,
+                            "checklist_id": 97,
+                            "position": 5,
+                            "title": "Review Pivotal Tracker",
+                            "created_at": "2014-10-04T14:51:54.796Z",
+                            "updated_at": "2015-07-21T21:58:57.147Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1373
+                        },
+                        {
+                            "id": 393210,
+                            "checklist_id": 97,
+                            "position": 6,
+                            "title": "Review roadmap",
+                            "created_at": "2018-05-15T14:07:08.261Z",
+                            "updated_at": "2018-05-15T14:07:14.800Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1373
+                        },
+                        {
+                            "id": 1374,
+                            "checklist_id": 97,
+                            "position": 9,
+                            "title": "Customers",
+                            "created_at": "2014-10-21T13:12:26.581Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 1375,
+                            "checklist_id": 97,
+                            "position": 12,
+                            "title": "Google Analytics",
+                            "created_at": "2014-10-21T13:12:45.715Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1374
+                        },
+                        {
+                            "id": 1376,
+                            "checklist_id": 97,
+                            "position": 14,
+                            "title": "Blog & Twitter",
+                            "created_at": "2014-10-21T13:13:19.737Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 931,
+                            "checklist_id": 97,
+                            "position": 15,
+                            "title": "Review potential blog articles",
+                            "created_at": "2014-10-06T23:20:43.829Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1376
+                        },
+                        {
+                            "id": 30137,
+                            "checklist_id": 97,
+                            "position": 16,
+                            "title": "Anything for Latest Features",
+                            "created_at": "2016-01-18T17:36:28.560Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1376
+                        },
+                        {
+                            "id": 932,
+                            "checklist_id": 97,
+                            "position": 17,
+                            "title": "Review blog",
+                            "created_at": "2014-10-06T23:27:53.199Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1376
+                        },
+                        {
+                            "id": 1378,
+                            "checklist_id": 97,
+                            "position": 19,
+                            "title": "How is the Process?",
+                            "created_at": "2014-10-21T13:15:33.163Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 933,
+                            "checklist_id": 97,
+                            "position": 20,
+                            "title": "How are you feeling?",
+                            "created_at": "2014-10-06T23:42:39.294Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1378
+                        },
+                        {
+                            "id": 934,
+                            "checklist_id": 97,
+                            "position": 21,
+                            "title": "Any updates to this checklist?",
+                            "created_at": "2014-10-06T23:42:44.510Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1378
+                        },
+                        {
+                            "id": 1379,
+                            "checklist_id": 97,
+                            "position": 22,
+                            "title": "Goals",
+                            "created_at": "2014-10-21T13:15:54.057Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": true,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        },
+                        {
+                            "id": 935,
+                            "checklist_id": 97,
+                            "position": 23,
+                            "title": "Update stretch goals for the coming week",
+                            "created_at": "2014-10-07T19:35:01.578Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": 1379
+                        },
+                        {
+                            "id": 34814,
+                            "checklist_id": 97,
+                            "position": 26,
+                            "title": null,
+                            "created_at": "2016-02-29T22:45:33.193Z",
+                            "updated_at": "2018-05-15T14:07:08.261Z",
+                            "header_step": false,
+                            "active": true,
+                            "original_id": null,
+                            "late_at_offset": null,
+                            "late_at_offset_units": null,
+                            "late_at_basis": null,
+                            "parent_step_id": null
+                        }
+                    ]
+                }
+            }
+
+
+## Workflow Step [/checklists/{checklist_id}/steps/{step_id}/{?api_key}]
+
+Workflow step
+
++ Parameters
+
+    + api_key - Your API key
+    + checklist_id - The workflow ID
+    + step_id - The ID of the step
+
+### Show step [GET]
+
++ Response 200 (application/json)
+
+
+    + Body
+
+            {
+                "step": {
+                    "id": 1373,
+                    "active": true,
+                    "checklist_id": 97,
+                    "header_step": true,
+                    "position": 1,
+                    "title": "Tasks and Plans"
+                }
+            }
+
+
+### Update a Checklist Step [PUT]
+
++ Attributes
+    + header_step - Whether the step contains other steps
+    + position - The position of the step
+    + title - The step title
+
++ Request (application/json)
+
+    + Body
+
+              {
+                  "header_step": false,
+                  "position": 1,
+                  "title": "Updated title"
+                }
+              }
+
++ Response 200 (application/json)
+
+
+    + Body
+
+              {
+                "step": {
+                  "checklist_id": 97,
+                  "active": true,
+                  "header_step": false,
+                  "position": 1,
+                  "step_id": 1373,
+                  "title": "Updated title"
+                }
+              }
+
+### Delete a Checklist Step [DELETE]
+
++ Response 204
+
+
+## Content Objects Collection [/checklists/{checklist_id}/steps/{step_id}/content_objects]
+Actions on the Content Objects collection for a workflow step.
+
++ Parameters
+
+    + checklist_id (required, Integer, ``) ... Checklist ID
+    + step_id (required, Integer, ``) ... Step ID
+
+
+### List Content Objects [GET]
+
++ Response 200 (application/json)
+
+
+    + Body
+
+            {
+              "content_objects": [
+                {
+                  "id": 9986,
+                  "caption": null,
+                  "content": "How well did we do with the stretch goals from last week?",
+                  "content_type": "text",
+                  "position": 1
+                }
+              ]
+            }
+
+### Create a Content Object [POST]
+
++ Attributes
+    + content - The content
+    + position - The position
+    + caption - The caption if this is an image or video
+    + content_type - One of file, video, text, image
+
++ Request (application/json)
+
+    + Body
+
+              {
+                  "content": "This is just a description",
+                  "content_type": "text",
+                  "position": 1,
+                }
+              }
+
++ Response 201 (application/json)
+
+
+    + Body
+
+              {
+                "content_object": {
+                  "id": 94734,
+                  "caption": null,
+                  "content": "This is just a description",
+                  "content_type": "text",
+                  "position": null
+                }
+              }
+
+
+## Content Object [/checklists/{checklist_id}/steps/{step_id}/content_objects/{content_object_id}]
+Actions on the content object resource
+
++ Parameters
+
+    + content_object_id (required, Integer, ``) ... Content Object ID
+
+    + checklist_id (required, Integer, ``) ... Checklist ID
+
+    + step_id (required, Integer, ``) ... Step ID
+
+
+### Show Content Object [GET]
+
++ Response 200 (application/json)
+
+
+    + Body
+
+              {
+                "content_object": {
+                  "id": 94734,
+                  "caption": null,
+                  "content": "This is just a description",
+                  "content_type": "text",
+                  "position": null
+                }
+              }
+
+
+### Update Content Object [PUT]
+
++ Attributes
+    + content - The content
+    + position - The position
+    + caption - The caption if this is an image or video
+    + content_type - One of file, video, text, image
+
+
++ Request (application/json)
+
+    + Body
+
+              {
+                  "caption": null,
+                  "content": "This is an even better description",
+                  "content_type": "text",
+                  "position": 2
+                }
+              }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "content_object": {
+                    "id": 94743,
+                    "caption": null,
+                    "content": "This is an even better description",
+                    "content_type": "text",
+                    "position": 2
+                }
+            }
+
+
+### Delete Content Object [DELETE]
+
++ Response 204
 
 ## Checklist Runs Collection [/runs/{?api_key,checklist_id,external_id,status,page,per_page,title}]
 
@@ -348,12 +872,12 @@ Returns a list of runs. Includes metadata on pagination, if relevant.
     + status (optional) - Filter list based on status of the run [started, late, completed].
     + per_page (optional) - Number of max records to return per request. Default is 30.
     + page (optional) - Choose which page to return.
-    
-    
+
+
 + Response 200 (application/json)
-            
+
     + Body
-        
+
             {
               "runs": [
                 {
@@ -467,7 +991,7 @@ object containing a collection of optional checklist run properties along with a
 
 + Parameters
     + api_key - Your API key
-    
+
 + Request (application/json)
 
         {
@@ -527,14 +1051,14 @@ object containing a collection of optional checklist run properties along with a
 + Parameters
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
-    
+
 ### Get Checklist Run Details [GET]
 
 Returns the details of the checklist run as well as the participants on the checklist.
 
 + Parameters
     + api_key - Your API key
-    
+
 + Response 200 (application/json)
 
     + Body
@@ -585,11 +1109,11 @@ Update the checklist run title, participants, and late_at date.
 
 + Parameters
     + api_key - Your API key
-    
+
 + Request (application/json)
 
         {
-            "run": 
+            "run":
             {
                 "title": "My new run",
                 "late_at": "2016-10-06T22:02:21.186Z",
@@ -607,11 +1131,11 @@ Update the checklist run title, participants, and late_at date.
 
 + Parameters
     + api_key - Your API key
-    
+
 + Response 201 (application/json)
 
     + Body
-    
+
             {
               "run_steps": [
                 {
@@ -985,7 +1509,7 @@ Complete a checklist step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
 
@@ -997,7 +1521,7 @@ Uncomplete a checklist step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
 ### Skip Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/skip{?api_key}]
@@ -1008,7 +1532,7 @@ Skip a checklist step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
 
@@ -1020,7 +1544,7 @@ Unskip a checklist step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
 ### Add Data to a Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/data/{?api_key}]
@@ -1031,16 +1555,16 @@ Add Data to a Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
-    
+
+
 + Request
 
-    + Body 
-  
+    + Body
+
             {
               "data": "Your data"
             }
-  
+
 + Response 200 (application/json)
 
 
@@ -1052,15 +1576,15 @@ Add an Image to a Checklist Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Request
 
-    + Body 
-  
+    + Body
+
             {
               "picture": "Base 64 encoded picture data"
             }
-  
+
 + Response 200 (application/json)
 
 ### List All Comments for a Checklist Run Step [GET /runs/{run_id}/run_steps/{run_step_id}/comments{?api_key}]
@@ -1071,11 +1595,11 @@ Get all comments for a Checklist Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Response 200 (application/json)
 
     + Body
-    
+
             {
               "comments": [
                 {
@@ -1115,11 +1639,11 @@ Add a Comment to a Checklist Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Request
 
-    + Body 
-  
+    + Body
+
             {
               "comment": "The text of the comment"
             }
@@ -1135,15 +1659,15 @@ Assign a Checklist Run Step
     + api_key - Your API key
     + run_id - A path variable that is required for a valid URL
     + run_step_id - A path variable that is required for a valid URL
-    
+
 + Request
 
-    + Body 
-  
+    + Body
+
             {
               "assignee_user_id": "The user ID of the assignee"
             }
-  
+
 + Response 200 (application/json)
 
 ## Users Collection [/users/{?api_key}]
@@ -1152,11 +1676,11 @@ Assign a Checklist Run Step
 
 + Parameters
     + api_key - Your API key
-    
+
 + Response 200 (application/json)
 
     + Body
-    
+
             {
               "users": [
                 {
