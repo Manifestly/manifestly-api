@@ -1,0 +1,1187 @@
+FORMAT: 1A
+HOST: https://manifest.ly/api/v1/
+
+# Manifestly
+
+Utilize your Manifestly Checklists via the API. Each request requires the api_key parameter. Your API Key can be found at <a href="https://www.manifest.ly/profile?section=api">your Manifestly profile page</a>.
+
+
+## Workflows Collection [/checklists/{?api_key}]
+
++ Parameters
+    + api_key - Your API key
+    
+### Create / Update a Workflow [POST]
+
+Create or update a workflow. If the external_id is specified and found, the workflow is updated. Otherwise, a new workflow is created.
+
+If no steps are specified, the steps are not affected.
+
+If steps are specified, existing steps are either updated or deleted (if they are not contained by title in the payload).
+
+Step position is inferred from the order in which steps are specified.
+
++ Request (application/json)
+
+        {
+            "business_days": [],
+            "description": "We use this when we hire a new employee",
+            "expected_duration": 1,
+            "expected_duration_units": "week",
+            "external_id": "some-external-identifier-001",
+            "hide_steps_from_external": false,
+            "tag_list": "hr",
+            "title": "New Employee",
+            "steps": [
+                {
+                    "title": "Ensure paperwork",
+                    "header_step": true
+                }
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+              "checklist": {
+                "external_id": "some-external-identifier-001",
+                "id": 10345,
+                "title": "New Employee",
+                "description": "We use this when we hire a new employee",
+                "steps": [{
+                    "id": 36243,
+                    "checklist_id": 10345,
+                    "position": 1,
+                    "title": "Ensure paperwork",
+                    "description": null,
+                    "created_at": "2016-03-08T00:04:35.804Z",
+                    "updated_at": "2016-03-08T00:05:00.017Z",
+                    "header_step": true,
+                    "active": true,
+                    "original_id": null,
+                    "description_with_links": null
+                }]
+            }
+
+### Deactivate a Workflow [DELETE /checklists/{?api_key,external_id}]
+
+Deactivate a Workflow by specifying its external_id.
+
++ Parameters
+    + api_key - Your API key
+    + external_id - External ID of the Active Workflow to deactivate
+
++ Response 204
+
++ Response 404
+
+### List All Workflos [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "checklists": [{
+                "id": 2034,
+                "title": "Blog post promotion",
+                "expected_duration": null,
+                "description": null
+              },
+              {
+                "id": 97,
+                "title": "Weekly Review",
+                "expected_duration": 4,
+                "description": null
+              }, {
+                "id": 2348,
+                "title": "Weekly Social Media tasks",
+                "expected_duration": null,
+                "description": null
+              }]
+            }
+            
+
+## Workflow [/checklists/{checklist_id}/{?api_key}]
+
++ Parameters
+    + api_key - Your API key
+    + checklist_id - A path variable that is required for a valid URL
+
+### Get Workflow Details [GET]
+
+Returns the details of the workflow as well as all the workflow steps.
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "checklist": {
+                "id": 2034,
+                "title": "Blog post promotion",
+                "description": null,
+                "steps": [{
+                  "id": 36243,
+                  "checklist_id": 2034,
+                  "position": 1,
+                  "title": "Day of posting",
+                  "description": null,
+                  "created_at": "2016-03-08T00:04:35.804Z",
+                  "updated_at": "2016-03-08T00:05:00.017Z",
+                  "header_step": true,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36262,
+                  "checklist_id": 2034,
+                  "position": 2,
+                  "title": "If originally published to Medium, repost to blog; and vice-versa",
+                  "description": null,
+                  "created_at": "2016-03-08T00:18:52.050Z",
+                  "updated_at": "2016-04-28T13:43:52.209Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36244,
+                  "checklist_id": 2034,
+                  "position": 3,
+                  "title": "Tweet on ManifestlyApp account",
+                  "description": "\u003cp\u003eIdeas about sharing multiple times.\u003c/p\u003e\u003cp\u003ehttp://kevin.lexblog.com/2015/01/12/should-you-share-a-tweet-multiple-times-on-twitter/\u003c/p\u003e\u003cp\u003e\u003cbr\u003e\u003c/p\u003e",
+                  "created_at": "2016-03-08T00:04:41.616Z",
+                  "updated_at": "2016-03-08T02:29:21.321Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": "\u003cp\u003eIdeas about sharing multiple times.\u003c/p\u003e\u003cp\u003e\u003ca href=\"http://kevin.lexblog.com/2015/01/12/should-you-share-a-tweet-multiple-times-on-twitter/\" target=\"_blank\"\u003ehttp://kevin.lexblog.com/2015/01/12/should-you-share-a-tweet-multiple-times-on-twitter/\u003c/a\u003e\u003c/p\u003e\u003cp\u003e\u003cbr\u003e\u003c/p\u003e"
+                }, {
+                  "id": 36250,
+                  "checklist_id": 2034,
+                  "position": 4,
+                  "title": "Share on Facebook",
+                  "description": null,
+                  "created_at": "2016-03-08T00:05:29.189Z",
+                  "updated_at": "2016-03-08T00:05:51.408Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36259,
+                  "checklist_id": 2034,
+                  "position": 5,
+                  "title": "Share on google+",
+                  "description": "\u003cp\u003ehttps://business.google.com/u/2/b/100158495361202430445/dashboard?hl=en-US\u0026amp;pageId=100158495361202430445\u003c/p\u003e\u003cp\u003e\u003cbr\u003e\u003c/p\u003e",
+                  "created_at": "2016-03-08T00:08:18.033Z",
+                  "updated_at": "2016-03-08T00:19:13.597Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": "\u003cp\u003e\u003ca href=\"https://business.google.com/u/2/b/100158495361202430445/dashboard?hl=en-US\u0026amp;pageId=100158495361202430445\" target=\"_blank\"\u003ehttps://business.google.com/u/2/b/100158495361202430445/dashboard?hl=en-US\u0026amp;pageId=100158495361202430445\u003c/a\u003e\u003c/p\u003e\u003cp\u003e\u003cbr\u003e\u003c/p\u003e"
+                }, {
+                  "id": 36245,
+                  "checklist_id": 2034,
+                  "position": 7,
+                  "title": "Day Two",
+                  "description": null,
+                  "created_at": "2016-03-08T00:04:41.678Z",
+                  "updated_at": "2016-03-08T00:08:06.056Z",
+                  "header_step": true,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36247,
+                  "checklist_id": 2034,
+                  "position": 8,
+                  "title": "Have Mark tweet on personal twitter",
+                  "description": null,
+                  "created_at": "2016-03-08T00:05:08.196Z",
+                  "updated_at": "2016-03-08T00:05:28.447Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36248,
+                  "checklist_id": 2034,
+                  "position": 9,
+                  "title": "Have Philip tweet on personal twitter",
+                  "description": null,
+                  "created_at": "2016-03-08T00:05:08.257Z",
+                  "updated_at": "2016-03-08T00:05:37.874Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36251,
+                  "checklist_id": 2034,
+                  "position": 11,
+                  "title": "Share on Manifestly LinkedIn",
+                  "description": null,
+                  "created_at": "2016-03-08T00:05:47.320Z",
+                  "updated_at": "2016-03-08T00:08:17.427Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36258,
+                  "checklist_id": 2034,
+                  "position": 12,
+                  "title": "Tweet on ManifestlyApp with different text",
+                  "description": null,
+                  "created_at": "2016-03-08T00:08:18.004Z",
+                  "updated_at": "2016-03-08T00:12:36.320Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36260,
+                  "checklist_id": 2034,
+                  "position": 13,
+                  "title": "Share on Philip google+",
+                  "description": "\u003cp\u003e\u003cbr\u003e\u003c/p\u003e",
+                  "created_at": "2016-03-08T00:12:14.304Z",
+                  "updated_at": "2016-03-08T00:19:21.827Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": "\u003cp\u003e\u003cbr\u003e\u003c/p\u003e"
+                }, {
+                  "id": 36257,
+                  "checklist_id": 2034,
+                  "position": 14,
+                  "title": "Day Three",
+                  "description": null,
+                  "created_at": "2016-03-08T00:07:18.904Z",
+                  "updated_at": "2016-03-08T00:08:21.089Z",
+                  "header_step": true,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36252,
+                  "checklist_id": 2034,
+                  "position": 15,
+                  "title": "Share on Philip LinkedIn",
+                  "description": null,
+                  "created_at": "2016-03-08T00:05:47.348Z",
+                  "updated_at": "2016-03-08T00:06:07.491Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36253,
+                  "checklist_id": 2034,
+                  "position": 16,
+                  "title": "Share on Mark LinkedIn",
+                  "description": null,
+                  "created_at": "2016-03-08T00:06:01.735Z",
+                  "updated_at": "2016-03-08T00:07:02.004Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36246,
+                  "checklist_id": 2034,
+                  "position": 17,
+                  "title": "Second Week",
+                  "description": null,
+                  "created_at": "2016-03-08T00:05:02.435Z",
+                  "updated_at": "2016-03-08T00:05:14.468Z",
+                  "header_step": true,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36254,
+                  "checklist_id": 2034,
+                  "position": 18,
+                  "title": "Repost on Medium",
+                  "description": null,
+                  "created_at": "2016-03-08T00:06:07.943Z",
+                  "updated_at": "2016-03-08T00:07:17.797Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }, {
+                  "id": 36255,
+                  "checklist_id": 2034,
+                  "position": 19,
+                  "title": "Repost on LinkedIn",
+                  "description": null,
+                  "created_at": "2016-03-08T00:06:07.962Z",
+                  "updated_at": "2016-03-08T00:07:22.285Z",
+                  "header_step": false,
+                  "active": true,
+                  "original_id": null,
+                  "description_with_links": null
+                }]
+              }
+            }
+
+
+
+## Checklist Runs Collection [/runs/{?api_key,checklist_id,external_id,status,page,per_page,title}]
+
+### List all Checklist Runs [GET]
+
+Returns a list of runs. Includes metadata on pagination, if relevant.
+
++ Parameters
+    + api_key - Your API key
+    + checklist_id (optional) - Filter list based on workflow ID.
+    + external_id (optional) - Filter list based on external ID.
+    + title (optional) - Filter list based on title.
+    + status (optional) - Filter list based on status of the run [started, late, completed].
+    + per_page (optional) - Number of max records to return per request. Default is 30.
+    + page (optional) - Choose which page to return.
+    
+    
++ Response 200 (application/json)
+            
+    + Body
+        
+            {
+              "runs": [
+                {
+                  "archive_url": "https://www.manifest.ly/runs/archives/ecfad026f4f25880282a6ad24b4fa8b3.pdf",
+                  "checklist_id": 97,
+                  "checklist_title": "Bi Weekly Review",
+                  "completed_at": null,
+                  "description": "A run can have a description.",
+                  "detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "external_id": "12345",
+                  "id": 51021,
+                  "late_at": null,
+                  "percent_completed": "0",
+                  "started_at": "2016-10-13T13:29:45.788Z",
+                  "state": "started",
+                  "summary": "0 of 16 steps completed (0%)",
+                  "tag_list": "['customer support','employee onboarding']",
+                  "title": null,
+                  "version": "3b4b1aef7a227141b58ca8dc2709e154f4037ce6",
+                  "users": [
+                    {
+                      "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/112/39c78925-e021-4377-9378-37bfd694c606.jpeg",
+                      "email": "mark@manifest.ly",
+                      "id": 112,
+                      "name": "Mark McEahern",
+                      "simple_display_name": "Mark McEahern",
+                      "username": "mark"
+                    },
+                    {
+                      "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/111/70756fbb-9e28-479d-8dcd-547549d21cec.jpeg",
+                      "email": "philip@manifest.ly",
+                      "id": 111,
+                      "name": "Philip Crawford",
+                      "simple_display_name": "Philip Crawford",
+                      "username": "philip"
+                    }
+                  ]
+                },
+                {
+                  "archive_url": "https://www.manifest.ly/runs/archives/ecfad026f4f25880282a6ad24b4fa8b3.pdf",
+                  "checklist_id": 97,
+                  "checklist_title": "Bi Weekly Review",
+                  "completed_at": null,
+                  "description": "",
+                  "detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "external_id": null,
+                  "id": 51020,
+                  "late_at": null,
+                  "percent_completed": "0",
+                  "started_at": "2016-10-13T13:26:52.153Z",
+                  "state": "started",
+                  "summary": "0 of 16 steps completed (0%)",
+                  "tag_list": "['customer support','employee onboarding']",
+                  "title": null,
+                  "version": "c518afa2f831374510300cc69c2eab9a1615b70d",
+                  "users": []
+                },
+                {
+                  "archive_url": "https://www.manifest.ly/runs/archives/ecfad026f4f25880282a6ad24b4fa8b3.pdf",
+                  "checklist_id": 97,
+                  "checklist_title": "Bi Weekly Review",
+                  "completed_at": null,
+                  "description": "",
+                  "detailed_title": "Bi Weekly Review - Mon, Oct 3",
+                  "external_id": null,
+                  "id": 49673,
+                  "late_at": null,
+                  "percent_completed": "0.25",
+                  "started_at": "2016-10-03T22:02:21.186Z",
+                  "state": "started",
+                  "summary": "4 of 16 steps completed (25%)",
+                  "tag_list": "['customer support','employee onboarding']",
+                  "title": "",
+                  "version": "70db5dff1d24d45c939b4b5cf8413fecb42a7379",
+                  "users": [
+                    {
+                      "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/112/39c78925-e021-4377-9378-37bfd694c606.jpeg",
+                      "email": "mark@manifest.ly",
+                      "id": 112,
+                      "name": "Mark McEahern",
+                      "simple_display_name": "Mark McEahern",
+                      "username": "mark"
+                    },
+                    {
+                      "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/111/70756fbb-9e28-479d-8dcd-547549d21cec.jpeg",
+                      "email": "philip@manifest.ly",
+                      "id": 111,
+                      "name": "Philip Crawford",
+                      "simple_display_name": "Philip Crawford",
+                      "username": "philip"
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "current_page": 1,
+                "next_page": null,
+                "previous_page": null,
+                "total_pages": 1,
+                "total_entries": 3,
+                "per_page": 30
+              }
+            }
+
+
+
+### Create a New Checklist Run [POST]
+
+You can create a new checklist run of a workflow using this action. It takes a JSON
+object containing a collection of optional checklist run properties along with a required checklist_id parameter.
+
++ Parameters
+    + api_key - Your API key
+    
++ Request (application/json)
+
+        {
+            "checklist_id": 2034,
+            "title": "My new run",
+            "late_at": "2016-10-06T22:02:21.186Z",
+            "users": [111,112],
+            "origin": "Mars"
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+              "run": {
+                "archive_url": "https://www.manifest.ly/runs/archives/ecfad026f4f25880282a6ad24b4fa8b3.pdf",
+                "checklist_id": 97,
+                "checklist_title": "Blog Promotion",
+                "completed_at": null,
+                "description": "",
+                "detailed_title": "My new run - Blog Promotion",
+                "external_id": "8675309",
+                "id": 49673,
+                "late_at": null,
+                "percent_completed": "0",
+                "started_at": "2016-10-03T22:02:21.186Z",
+                "state": "started",
+                "summary": "0 of 16 steps completed (0%)",
+                "tag_list": "['customer support','employee onboarding']",
+                "title": "My new run",
+                "version": "70db5dff1d24d45c939b4b5cf8413fecb42a7379",
+                "users": [
+                  {
+                    "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/112/39c78925-e021-4377-9378-37bfd694c606.jpeg",
+                    "email": "mark@manifest.ly",
+                    "id": 112,
+                    "name": "Mark McEahern",
+                    "simple_display_name": "Mark McEahern",
+                    "username": "mark"
+                  },
+                  {
+                    "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/111/70756fbb-9e28-479d-8dcd-547549d21cec.jpeg",
+                    "email": "philip@manifest.ly",
+                    "id": 111,
+                    "name": "Philip Crawford",
+                    "simple_display_name": "Philip Crawford",
+                    "username": "philip"
+                  }
+                ]
+              }
+            }
+
+
+## Checklist Run [/runs/{run_id}/{?api_key}]
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    
+### Get Checklist Run Details [GET]
+
+Returns the details of the checklist run as well as the participants on the checklist.
+
++ Parameters
+    + api_key - Your API key
+    
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "run": {
+                "archive_url": "https://www.manifest.ly/runs/archives/ecfad026f4f25880282a6ad24b4fa8b3.pdf",
+                "checklist_id": 97,
+                "checklist_title": "Bi Weekly Review",
+                "completed_at": null,
+                "description": "",
+                "detailed_title": "Bi Weekly Review - Mon, Oct 3",
+                "external_id": null,
+                "id": 49673,
+                "late_at": null,
+                "percent_completed": "0.25",
+                "started_at": "2016-10-03T22:02:21.186Z",
+                "state": "started",
+                "summary": "4 of 16 steps completed (25%)",
+                "tag_list": "['customer support','employee onboarding']",
+                "title": "",
+                "version": "70db5dff1d24d45c939b4b5cf8413fecb42a7379",
+                "users": [
+                  {
+                    "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/112/39c78925-e021-4377-9378-37bfd694c606.jpeg",
+                    "email": "mark@manifest.ly",
+                    "id": 112,
+                    "name": "Mark McEahern",
+                    "simple_display_name": "Mark McEahern",
+                    "username": "mark"
+                  },
+                  {
+                    "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/111/70756fbb-9e28-479d-8dcd-547549d21cec.jpeg",
+                    "email": "philip@manifest.ly",
+                    "id": 111,
+                    "name": "Philip Crawford",
+                    "simple_display_name": "Philip Crawford",
+                    "username": "philip"
+                  }
+                ]
+              }
+            }
+
+
+### Update Checklist Run [POST]
+
+Update the checklist run title, participants, and late_at date.
+
++ Parameters
+    + api_key - Your API key
+    
++ Request (application/json)
+
+        {
+            "run": 
+            {
+                "title": "My new run",
+                "late_at": "2016-10-06T22:02:21.186Z",
+                "users": [111,112],
+                "origin": "Mars"
+            }
+        }
+
++ Response 200 (application/json)
+
+
+## Checklist Run Steps Collection [/runs/{run_id}/run_steps/{?api_key}]
+
+### List All Steps for a Checklist Run [GET]
+
++ Parameters
+    + api_key - Your API key
+    
++ Response 201 (application/json)
+
+    + Body
+    
+            {
+              "run_steps": [
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": true,
+                  "id": 779203,
+                  "position": 1,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Tasks and Plans",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div>How well did we do with the stretch goals from last week?\n<a href=\"https://docs.google.com/document/d/1Fck5r3Rz_xHlLnQLXNlREbkt_VVcYE6jV64tm9LfVrM/edit?usp=sharing\" target=\"_blank\">https://docs.google.com/document/d/1Fck5r3Rz_xHlLnQLXNlREbkt_VVcYE6jV64tm9LfVrM/edit?usp=sharing</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779204,
+                  "position": 2,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review Stretch Goals from last week",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div><a href=\"https://trello.com/b/2wnpEel0/marketing\" target=\"_blank\">https://trello.com/b/2wnpEel0/marketing</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779205,
+                  "position": 3,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review Marketing plans",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div><ul><li><a href=\"https://manifestly.uservoice.com/\" target=\"_blank\">https://manifestly.uservoice.com/</a><br></li></ul></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779206,
+                  "position": 4,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review UserVoice suggestions",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div><a href=\"https://www.pivotaltracker.com/n/projects/744963\" target=\"_blank\">https://www.pivotaltracker.com/n/projects/744963</a>\n\n* Anything ready to accept/reject in Current/Backlog?\n* Is Backlog empty? (It should not be.)\n* Is Backlog prioritized?</div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779207,
+                  "position": 5,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review Pivotal Tracker",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div><a href=\"https://rpm.newrelic.com/accounts/597749/applications/3633860\" target=\"_blank\">https://rpm.newrelic.com/accounts/597749/applications/3633860</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779208,
+                  "position": 7,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review New Relic",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": true,
+                  "id": 779209,
+                  "position": 9,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Customers",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div>Any new?\nAre we losing any?\nWhat is level of engagement?\nWho did we meet or talk with last week?\nPlans to meet with any this week?\n<a href=\"https://app.intercom.io/a/apps/849bd85eb56fc61d6b680198c195896561553352/users/segments/active\" target=\"_blank\">https://app.intercom.io/a/apps/849bd85eb56fc61d6b680198c195896561553352/users/segments/active</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779210,
+                  "position": 10,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review customer list (intercom)",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div><a href=\"https://docs.google.com/spreadsheets/d/1Ya7PiyHPw12QOgA8ntdIijRmp9qDsTrJALQaAGGLaxY/edit#gid=0\" target=\"_blank\">https://docs.google.com/spreadsheets/d/1Ya7PiyHPw12QOgA8ntdIijRmp9qDsTrJALQaAGGLaxY/edit#gid=0</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779211,
+                  "position": 11,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Compare customer list with growth targets",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div>* Users flow\n* Goals\n* Bounce rate\n\nHere: <a href=\"https://www.google.com/analytics/web/?authuser=2#report/visitors-overview/a54880311w87905814p91277014/\" target=\"_blank\">https://www.google.com/analytics/web/?authuser=2#report/visitors-overview/a54880311w87905814p91277014/</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779212,
+                  "position": 12,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review Google Analytics",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div><a href=\"http://uwcu.org\" target=\"_blank\">http://uwcu.org</a>\n\nGoogle docs spreadsheet on expenses\n<a href=\"https://docs.google.com/spreadsheet/ccc?key=0Ao2zoU88UKm-dFhfZkY2Yk90WUFYbEtTX2NsVzV4Wnc#gid=0\" target=\"_blank\">https://docs.google.com/spreadsheet/ccc?key=0Ao2zoU88UKm-dFhfZkY2Yk90WUFYbEtTX2NsVzV4Wnc#gid=0</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779213,
+                  "position": 13,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review Financials",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": true,
+                  "id": 779214,
+                  "position": 14,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Blog & Twitter",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div><a href=\"https://docs.google.com/document/d/11KhCXdEwc5vV0-q_DFawAisEoUFt-3F1TxiA9mtJMio/edit\" target=\"_blank\">https://docs.google.com/document/d/11KhCXdEwc5vV0-q_DFawAisEoUFt-3F1TxiA9mtJMio/edit</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779215,
+                  "position": 15,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review potential blog articles",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div><p><a href=\"https://github.com/m5rk/manifestly/pulls?q=is%3Apr+is%3Aclosed\" target=\"_blank\">https://github.com/m5rk/manifestly/pulls?q=is%3Apr+is%3Aclosed</a><br></p></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779216,
+                  "position": 16,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review last week's closed pull requests--anything worth blogging?",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div><a href=\"http://blog.manifest.ly/\" target=\"_blank\">http://blog.manifest.ly/</a>\n\n* When was the last article published? More than 2 weeks ago?</div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779217,
+                  "position": 17,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review blog",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div>* Last tweets?\n* Replied to mentions?\n\n<a href=\"https://twitter.com/manifestlyapp\" target=\"_blank\">https://twitter.com/manifestlyapp</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779218,
+                  "position": 18,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Review Twitter Feed",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": true,
+                  "id": 779219,
+                  "position": 19,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "How is the Process?",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779220,
+                  "position": 20,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "How are you feeling?",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779221,
+                  "position": 21,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Any updates to this checklist?",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": true,
+                  "id": 779222,
+                  "position": 22,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Goals",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                },
+                {
+                  "assignee_avatar_url": null,
+                  "completed_at": null,
+                  "data": null,
+                  "description_with_links": "<div>What are our stretch goals from the coming week?\n<a href=\"https://docs.google.com/document/d/1Fck5r3Rz_xHlLnQLXNlREbkt_VVcYE6jV64tm9LfVrM/edit?usp=sharing\" target=\"_blank\">https://docs.google.com/document/d/1Fck5r3Rz_xHlLnQLXNlREbkt_VVcYE6jV64tm9LfVrM/edit?usp=sharing</a></div>",
+                  "run_detailed_title": "Bi Weekly Review - Thu, Oct 13",
+                  "header_step": false,
+                  "id": 779223,
+                  "position": 23,
+                  "run_id": 51021,
+                  "skipped": false,
+                  "title": "Update stretch goals for the coming week",
+                  "user_id": null,
+                  "user": null,
+                  "picture": null,
+                  "run_step_data_setting": null
+                }
+              ]
+            }
+
+
+## Checklist Run Step [/runs/{run_id}/run_steps/{run_step_id}/{?api_key}]
+
+### Complete Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/complete{?api_key}]
+
+Complete a checklist step
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    + run_step_id - A path variable that is required for a valid URL
+    
++ Response 200 (application/json)
+
+
+### Uncomplete Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/uncomplete{?api_key}]
+
+Uncomplete a checklist step
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    + run_step_id - A path variable that is required for a valid URL
+    
++ Response 200 (application/json)
+
+### Skip Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/skip{?api_key}]
+
+Skip a checklist step
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    + run_step_id - A path variable that is required for a valid URL
+    
++ Response 200 (application/json)
+
+
+### Unskip Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/unskip{?api_key}]
+
+Unskip a checklist step
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    + run_step_id - A path variable that is required for a valid URL
+    
++ Response 200 (application/json)
+
+### Add Data to a Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/data/{?api_key}]
+
+Add Data to a Run Step
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    + run_step_id - A path variable that is required for a valid URL
+    
+    
++ Request
+
+    + Body 
+  
+            {
+              "data": "Your data"
+            }
+  
++ Response 200 (application/json)
+
+
+### Add Picture to a Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/picture/{?api_key}]
+
+Add an Image to a Checklist Run Step
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    + run_step_id - A path variable that is required for a valid URL
+    
++ Request
+
+    + Body 
+  
+            {
+              "picture": "Base 64 encoded picture data"
+            }
+  
++ Response 200 (application/json)
+
+### List All Comments for a Checklist Run Step [GET /runs/{run_id}/run_steps/{run_step_id}/comments{?api_key}]
+
+Get all comments for a Checklist Run Step
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    + run_step_id - A path variable that is required for a valid URL
+    
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "comments": [
+                {
+                  "comment_with_links": "And this is the second comment.",
+                  "created_at": "2017-02-26T18:24:13.011Z",
+                  "id": 43552,
+                  "user": {
+                    "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/111/03614f87-2d59-45b3-8eec-a9e5ba710e3c.jpeg",
+                    "email": "philip@manifest.ly",
+                    "id": 111,
+                    "name": "Philip Crawford",
+                    "simple_display_name": "Philip Crawford",
+                    "username": "philip"
+                  }
+                },
+                {
+                  "comment_with_links": "This is the first comment",
+                  "created_at": "2017-02-26T18:23:42.108Z",
+                  "id": 43551,
+                  "user": {
+                    "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/111/03614f87-2d59-45b3-8eec-a9e5ba710e3c.jpeg",
+                    "email": "philip@manifest.ly",
+                    "id": 111,
+                    "name": "Philip Crawford",
+                    "simple_display_name": "Philip Crawford",
+                    "username": "philip"
+                  }
+                }
+              ]
+            }
+
+### Add a Comment to a Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/comments{?api_key}]
+
+Add a Comment to a Checklist Run Step
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    + run_step_id - A path variable that is required for a valid URL
+    
++ Request
+
+    + Body 
+  
+            {
+              "comment": "The text of the comment"
+            }
+
++ Response 200 (application/json)
+
+
+### Assign a Checklist Run Step [POST /runs/{run_id}/run_steps/{run_step_id}/assign/{?api_key}]
+
+Assign a Checklist Run Step
+
++ Parameters
+    + api_key - Your API key
+    + run_id - A path variable that is required for a valid URL
+    + run_step_id - A path variable that is required for a valid URL
+    
++ Request
+
+    + Body 
+  
+            {
+              "assignee_user_id": "The user ID of the assignee"
+            }
+  
++ Response 200 (application/json)
+
+## Users Collection [/users/{?api_key}]
+
+### List All Users [GET]
+
++ Parameters
+    + api_key - Your API key
+    
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "users": [
+                {
+                  "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/1648/a21f7d1e-4f0d-454f-929f-d653fc2e32f7.png",
+                  "email": "mark+zapiertest+20160407@mceahern.com",
+                  "id": 1648,
+                  "name": "Xapier Mark",
+                  "simple_display_name": "Xapier Mark",
+                  "username": "markzap"
+                },
+                {
+                  "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/112/39c78925-e021-4377-9378-37bfd694c606.jpeg",
+                  "email": "mark@manifest.ly",
+                  "id": 112,
+                  "name": "Mark McEahern",
+                  "simple_display_name": "Mark McEahern",
+                  "username": "mark"
+                },
+                {
+                  "avatar_url": "https://s3-us-west-2.amazonaws.com/manifestly-uploads-development/avatars/111/70756fbb-9e28-479d-8dcd-547549d21cec.jpeg",
+                  "email": "philip@manifest.ly",
+                  "id": 111,
+                  "name": "Philip Crawford",
+                  "simple_display_name": "Philip Crawford",
+                  "username": "philip"
+                }
+              ]
+            }
