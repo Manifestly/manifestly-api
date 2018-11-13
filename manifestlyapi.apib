@@ -114,7 +114,6 @@ Deactivate a Workflow by specifying its external_id.
 
 Returns the details of the workflow as well as all the workflow steps.
 
-
 + Response 200 (application/json)
 
     + Body
@@ -335,13 +334,47 @@ Returns the details of the workflow as well as all the workflow steps.
 
 ## Workflow Steps Collection [/checklists/{checklist_id}/steps{?api_key}]
 
-### List all Workflow Steps [GET]
-
-Returns a list of active steps for the specified run.
+### Create a Checklist Step [POST]
+You can add a step to a workflow. If position is not specified, the step is appended to the end of the current list of steps.
 
 + Parameters
     + api_key - Your API key
-    + checklist_id (optional) - Filter list based on workflow ID.
+    + checklist_id - The workflow ID
+
++ Attributes
+    + header_step - Whether the step contains other steps
+    + position - The position of the step
+    + title - The step title
+
++ Request (application/json)
+
+
+    + Body
+
+              {
+                "header_step": true,
+                "title": "A new header"
+              }
+
++ Response 201 (application/json)
+
+
+    + Body
+
+              {
+                "step": {
+                  "active": true,
+                  "checklist_id": 97,
+                  "id": 514111,
+                  "header_step": true,
+                  "position": 27
+                  "title": "A new header"
+                }
+              }
+
+### List all Workflow Steps [GET]
+
+Returns a list of active steps for the specified run.
 
 + Response 200 (application/json)
 
@@ -623,6 +656,207 @@ Returns a list of active steps for the specified run.
                 }
             }
 
+
+## Workflow Step [/checklists/{checklist_id}/steps/{step_id}/{?api_key}]
+
+Workflow step
+
++ Parameters
+
+    + api_key - Your API key
+    + checklist_id - The workflow ID
+    + step_id - The ID of the step
+
+### Show step [GET]
+
++ Response 200 (application/json)
+
+
+    + Body
+
+            {
+                "step": {
+                    "id": 1373,
+                    "active": true,
+                    "checklist_id": 97,
+                    "header_step": true,
+                    "position": 1,
+                    "title": "Tasks and Plans"
+                }
+            }
+
+
+### Update a Checklist Step [PUT]
+
++ Attributes
+    + header_step - Whether the step contains other steps
+    + position - The position of the step
+    + title - The step title
+
++ Request (application/json)
+
+    + Body
+
+              {
+                  "header_step": false,
+                  "position": 1,
+                  "title": "Updated title"
+                }
+              }
+
++ Response 200 (application/json)
+
+
+    + Body
+
+              {
+                "step": {
+                  "checklist_id": 97,
+                  "active": true,
+                  "header_step": false,
+                  "position": 1,
+                  "step_id": 1373,
+                  "title": "Updated title"
+                }
+              }
+
+### Delete a Checklist Step [DELETE]
+
++ Response 204
+
+
+## Content Objects Collection [/checklists/{checklist_id}/steps/{step_id}/content_objects]
+Actions on the Content Objects collection for a workflow step.
+
++ Parameters
+
+    + checklist_id (required, Integer, ``) ... Checklist ID
+    + step_id (required, Integer, ``) ... Step ID
+
+
+### List Content Objects [GET]
+
++ Response 200 (application/json)
+
+
+    + Body
+
+            {
+              "content_objects": [
+                {
+                  "id": 9986,
+                  "caption": null,
+                  "content": "How well did we do with the stretch goals from last week?",
+                  "content_type": "text",
+                  "position": 1
+                }
+              ]
+            }
+
+### Create a Content Object [POST]
+
++ Attributes
+    + content - The content
+    + position - The position
+    + caption - The caption if this is an image or video
+    + content_type - One of file, video, text, image
+
++ Request (application/json)
+
+    + Body
+
+              {
+                  "content": "This is just a description",
+                  "content_type": "text",
+                  "position": 1,
+                }
+              }
+
++ Response 201 (application/json)
+
+
+    + Body
+
+              {
+                "content_object": {
+                  "id": 94734,
+                  "caption": null,
+                  "content": "This is just a description",
+                  "content_type": "text",
+                  "position": null
+                }
+              }
+
+
+## Content Object [/checklists/{checklist_id}/steps/{step_id}/content_objects/{content_object_id}]
+Actions on the content object resource
+
++ Parameters
+
+    + content_object_id (required, Integer, ``) ... Content Object ID
+
+    + checklist_id (required, Integer, ``) ... Checklist ID
+
+    + step_id (required, Integer, ``) ... Step ID
+
+
+### Show Content Object [GET]
+
++ Response 200 (application/json)
+
+
+    + Body
+
+              {
+                "content_object": {
+                  "id": 94734,
+                  "caption": null,
+                  "content": "This is just a description",
+                  "content_type": "text",
+                  "position": null
+                }
+              }
+
+
+### Update Content Object [PUT]
+
++ Attributes
+    + content - The content
+    + position - The position
+    + caption - The caption if this is an image or video
+    + content_type - One of file, video, text, image
+
+
++ Request (application/json)
+
+    + Body
+
+              {
+                  "caption": null,
+                  "content": "This is an even better description",
+                  "content_type": "text",
+                  "position": 2
+                }
+              }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "content_object": {
+                    "id": 94743,
+                    "caption": null,
+                    "content": "This is an even better description",
+                    "content_type": "text",
+                    "position": 2
+                }
+            }
+
+
+### Delete Content Object [DELETE]
+
++ Response 204
 
 ## Checklist Runs Collection [/runs/{?api_key,checklist_id,external_id,status,page,per_page,title}]
 
